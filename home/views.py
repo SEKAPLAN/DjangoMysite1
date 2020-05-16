@@ -11,5 +11,5 @@ def index(request):
 
 def hakkimizda(request):
     setting = Setting.objects.get(pk=1)
-    context = {'setting': setting ,'page':'hakkimizda'}
-    return render(request, 'hakkimizda.html', context)
+    context = {'setting': setting,'page':'hakkimizda'}
+    return render(request,'hakkimizda.html', context)
