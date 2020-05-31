@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 # Create your models here.
 from django.forms import ModelForm
+from django.urls import reverse
 from django.utils.safestring import mark_safe
 from ckeditor_uploader.fields import RichTextUploadingField
 from mptt.fields import TreeForeignKey
@@ -18,13 +19,12 @@ class Category(MPTTModel):
     keywords = models.CharField(blank=True,max_length=200)
     image = models.ImageField(blank=True,upload_to='images/')
     status = models.CharField(max_length=10,choices=STATUS)
-    slug = models.SlugField()
+    slug = models.SlugField(null=False,unique=True)
     parent = TreeForeignKey('self',blank=True,null=True,related_name='children',on_delete=models.CASCADE)
     create_at =models.DateTimeField(auto_now_add=True)
     update_at =models.DateTimeField(auto_now=True)
 
     class MPTTMeta:
-
         order_insertion_by = ['title']
 
     def __str__(self):
@@ -34,6 +34,11 @@ class Category(MPTTModel):
             full_path.append(k.title)
             k=k.parent
         return ' -> '.join(full_path[::-1])
+    def image_tag(self):
+        return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
+    image_tag.short_description = 'Image'
+
+
 
 class Produce(models.Model):
         STATUS = (
@@ -48,7 +53,7 @@ class Produce(models.Model):
         price =models.FloatField()
         amount =models.IntegerField()
         detail=RichTextUploadingField()
-        slug = models.SlugField(blank=True,max_length=200)
+        slug = models.SlugField(null=False,unique=True)
         status = models.CharField(max_length=10, choices=STATUS)
         create_at = models.DateTimeField(auto_now_add=True)
         update_at = models.DateTimeField(auto_now=True)
@@ -60,6 +65,11 @@ class Produce(models.Model):
             return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
 
         image_tag.short_description = 'Image'
+        def catimg_tag(self):
+            return mark_safe((Category.status))
+
+        def get_absolute_url(self):
+            return reverse('prduce_detail', kwargs={'slug': self.slug})
 
 class Comment(models.Model):
     STATUS = (

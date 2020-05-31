@@ -1,0 +1,68 @@
+{% extends "homebase.html"%}
+{%block title %} {{ setting.title  }} {% endblock %}
+{%block keywords %}{{ setting.keywords  }} {% endblock %}
+{%block description %}{{ setting.description  }}{% endblock %}
+ {%block head%}
+<link rel="shorcut icon" type="image/x-icon" href="{{setting.icon.url}}"/>
+ {%endblock%}
+
+
+{%block sidebar %}
+
+{% endblock %}
+
+{%block content %}
+<div id="mainBody">
+<div class="container">
+
+	<div class="row">
+		<div id="login" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h2>Login Block</h2>
+		  </div>
+
+		  <div class="modal-body">
+
+				{%if messages %}
+				{% for message in messages%}
+						<div class="alert alert-{{message.tags}}" role="alert">
+							{{message}}
+						</div>
+				{%endfor%}
+			{%endif%}
+
+			<form class="form-horizontal loginFrm" method="post">
+				{%csrf_token%}
+			  <div class="control-group">
+				<input name="username" type="text" id="inputEmail" placeholder="Username">
+			  </div>
+
+			  <div class="control-group">
+				<input name="password" type="password" id="inputPassword" placeholder="Password">
+			  </div>
+
+			  <div class="control-group">
+				<label class="checkbox">
+				<input type="checkbox"> Remember me
+				</label>
+			  </div>
+				<button type="submit" class="btn btn-success">Sign in</button>
+
+			</form>
+
+
+
+		  </div>
+
+
+	</div>
+
+	</div>
+
+	</div>
+</div>
+</div>
+
+
+{% endblock %}

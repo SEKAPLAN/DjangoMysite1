@@ -1,4 +1,7 @@
 {%load static%}
+
+
+<!-- HEADER !-->
 <div id="header">
 <div class="container">
 <div id="welcomeLine" class="row">
@@ -15,6 +18,25 @@
 	</div>
 	</div>
 </div>
+
+	<script>
+  $(function() {
+		$("#query").autocomplete({
+      source: "/search_auto/",
+      select: function (event, ui) { //item selected
+        AutoCompleteSelectHandler(event, ui)
+      },
+      minLength: 2,
+    });
+  });
+
+  function AutoCompleteSelectHandler(event, ui)
+  {
+    var selectedObj = ui.item;
+  }
+
+</script>
+
 <!-- Navbar ================================================== -->
 <div id="logoArea" class="navbar">
 <a id="smallScreen" data-target="#topMenu" data-toggle="collapse" class="btn btn-navbar">
@@ -24,47 +46,44 @@
 </a>
   <div class="navbar-inner">
     <a class="brand" href="/"><img src="{%static 'themes/images/logo.png'%}" alt="Bootsshop"/></a>
-		<form class="form-inline navbar-search" method="post" action="products.html" >
-		<input id="srchFld" class="srchTxt" type="text" />
-		  <select class="srchTxt">
-			<option>All</option>
-			<option>CLOTHES </option>
-			<option>FOOD AND BEVERAGES </option>
-			<option>HEALTH & BEAUTY </option>
-			<option>SPORTS & LEISURE </option>
-			<option>BOOKS & ENTERTAINMENTS </option>
-		</select>
-		  <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
+
+
+	  <form class="form-inline navbar-search" method="post" action="/search/" >
+		  {%csrf_token%}
+		  <input id="query"  name="query" class="srchTxt" type="text" />
+		  {% load mptt_tags %}
+		  <select name="catid" class="srchTxt">
+
+			<option value="0" >All</option>
+
+					{%if node.is_leaf_node%}
+			  <option value="{{node.id}}"> {{node.title}}</option>
+			  {%endif%}
+			  {%if not node.is_leaf_node%}
+			  	<optgroup label="{{node.title}}">
+					{{children}}
+				</optgroup>
+			  {%endif%}
+
+		 </select>
+
+		 <button type="submit" id="submitButton" class="btn btn-primary">GO</button>
     </form>
+
     <ul id="topMenu" class="nav pull-right">
 	 <li class=""><a href=" /hakkimizda">Hakkımızda</a></li>
 	 <li class=""><a href=" /referanslar">Referanslar</a></li>
 	 <li class=""><a href=" /iletisim">İletisim</a></li>
 	 <li class="">
-	 <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a>
-	<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
-		  <div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3>Login Block</h3>
-		  </div>
-		  <div class="modal-body">
-			<form class="form-horizontal loginFrm">
-			  <div class="control-group">
-				<input type="text" id="inputEmail" placeholder="Email">
-			  </div>
-			  <div class="control-group">
-				<input type="password" id="inputPassword" placeholder="Password">
-			  </div>
-			  <div class="control-group">
-				<label class="checkbox">
-				<input type="checkbox"> Remember me
-				</label>
-			  </div>
-			</form>
-			<button type="submit" class="btn btn-success">Sign in</button>
-			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-		  </div>
-	</div>
+
+		 {%if user.id is not None%}
+	 <a href="/login/" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">{{user.username}}</span></a>
+		 <a href="/logout"><span class="btn btn-large btn-success">LOGOUT </span></a></a>
+
+		 {%else%}
+		 <a href="/login/" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">LOGİN </span></a>
+		 <a href="/join/"><span class="btn btn-large btn-success">JOİN </span></a></a>
+		  {%endif%}
 	</li>
     </ul>
   </div>

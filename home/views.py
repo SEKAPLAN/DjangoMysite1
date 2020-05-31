@@ -1,4 +1,6 @@
+import json
 from django.contrib import messages
+from django.contrib.auth import logout, authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
@@ -11,6 +13,9 @@ from product.models import Category
 from product.models import Images
 
 from product.models import Comment
+
+from home.forms import SearchForm
+
 
 
 def index(request):
@@ -73,3 +78,63 @@ def produces_detail(request,id,slug):
     comments = Comment.objects.filter(produce_id=id,status='True')
     context = {'produce': produce, 'category': category,'images': images,'comments': comments}
     return render(request, 'produces_detail.html', context)
+
+def produce_search(request):
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            category = Category.objects.all()
+            query = form.cleaned_data['query']
+            catid = form.cleaned_data['catid']
+            if catid == 0:
+                    produces = Produce.objects.filter(title__icontains=query)
+
+            else:
+                    produces = Produce.objects.filter(title__icontains=query, category_id=catid)
+
+            context = {'produces': produces, 'category': category}
+            return render(request, 'produce_search.html', context)
+
+    return HttpResponseRedirect('/')
+
+def produce_search_auto(request):
+  if request.is_ajax():
+    q = request.GET.get('term','')
+    produce = Produce.objects.filter(title__icontains=q)
+    results = []
+    for rs in produce:
+      produce_json = {}
+      produce_json = rs.title
+      results.append(produce_json)
+    data = json.dumps(results)
+  else:
+    data = 'fail'
+  mimetype = 'application/json'
+  return HttpResponse(data, mimetype)
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect('/')
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request,username=username,password=password)
+        if user is not None:
+            login(request,user)
+            return HttpResponseRedirect('/')
+
+        else:
+            messages.error(request, "Login hatası! Kulanıcı bilgileri yanlış")
+            return HttpResponseRedirect('/login')
+
+
+    category = Category.objects.all()
+    context = {'category': category}
+    return render(request, 'login.html', context)
+
+
+
+
+
