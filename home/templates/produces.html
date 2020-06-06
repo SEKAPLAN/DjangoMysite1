@@ -18,7 +18,11 @@
 
 
 		<div id="sidebar" class="span3">
-		<div class="well well-small"><a id="myCart" href="product_summary.html"><img src="themes/images/ico-cart.png" alt="cart">3 Items in your cart  <span class="badge badge-warning pull-right">$155.00</span></a></div>
+			<div class="well well-small">
+
+				<a id="myCart" href="/shopcart"><img src="/uploads/images/icon5.png" alt="cart"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> {{request.session.cart_items}} Itemes in 	your cart </span> </a>
+
+			</div>
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
 			{% load mptt_tags %}
 

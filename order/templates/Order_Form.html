@@ -1,0 +1,127 @@
+{% extends "homebase.html"%}
+{%block title %} ShopCart {% endblock %}
+{%block keywords %}{{ categorydata.keywords  }} {% endblock %}
+{%block description %}{{ categorydata.description  }}{% endblock %}
+ {%block head%}
+<link rel="shorcut icon" type="image/x-icon" href="{{setting.icon.url}}"/>
+ {%endblock%}
+
+{%block sidebar %}
+
+{% endblock %}
+
+{%block content %}
+<div id="mainBody">
+<div class="container">
+
+	<div class="row">
+            <h3>User Profile</h3>
+        <form class="form-horizontal" method="post" >
+            {%if messages %}
+							{% for message in messages%}
+									<div class="alert alert-{{message.tags}}" role="alert">
+										{{message}}
+									</div>
+							{%endfor%}
+            {%endif%}
+            {%csrf_token%}
+
+		 <div class="control-group">
+			<label class="control-label" for="inputLnam">User name <sup>*</sup></label>
+			<div class="controls">
+			  <input type="text" id="inputLnam" name ="first_name"  value="{{user.username}}" placeholder="Username">
+			</div>
+		 </div>
+            <div class="control-group">
+			<label class="control-label" for="inputLnam">Last name <sup>*</sup></label>
+			<div class="controls">
+			  <input type="text" id="inputLnam5" name ="last_name"  value="{{user.last_name}}" placeholder="Username">
+			</div>
+		 </div>
+
+		<div class="control-group">
+		<label class="control-label" for="input_email">Address <sup>*</sup></label>
+		<div class="controls">
+		  <input type="text" id="input_email" name ="address"  value="{{profile.address}} " placeholder="Address">
+		</div>
+	  </div>
+
+	<div class="control-group">
+		<label class="control-label" for="inputPassword1">Phone <sup>*</sup></label>
+		<div class="controls">
+		  <input  id="inputPassword1" name ="phone"  value="{{profile.phone}}" placeholder="Phone">
+		</div>
+	  </div>
+
+		<div class="control-group">
+		<label class="control-label">City & Country <sup>*</sup> </label>
+		<div class="controls">
+		  <select class="control-label" name="city">
+				<option value=""></option>
+					<option value="{{profile.city}}" selected>{{profile.city}}</option>
+					<option value="İstanbul"></option>
+					<option value="Ankara">Ankara</option>
+					<option value="Samsun">Samsun</option>
+					<option value="Çanakkale">Çanakkale</option>
+					<option value="İzmir">İzmir</option>
+					<option value="Konya">Konya</option>
+			</select>
+			<select class="control-label" name="Country :">
+				<option value=""></option>
+					<option value="{{profile.country}}" selected>{{profile.country}}</option>
+					<option value="">Çin</option>
+					<option value="">Azerbeycan</option>
+					<option value="">Türkmenistan</option>
+			</select>
+
+		</div>
+	  </div>
+
+            <!---kredi kartı bölümü------>
+            <h3>Payments</h3>
+            <div class="control-group">
+
+			<label class="control-label" for="inputFname">Total <sup>*</sup></label>
+			<div class="controls">
+			  <input type="text" name="total" id="inputFname" readonly value="${{total}}">
+			</div>
+                    <br>
+                <label class="control-label" for="inputFname">Credit Card Holder <sup>*</sup></label>
+			<div class="controls">
+			  <input type="text" name="holder" >
+			</div>
+                    <br>
+                <label class="control-label" for="inputFname">Credit Card number <sup>*</sup></label>
+			<div class="controls">
+			  <input type="text" name="number" >
+			</div>
+                    <br>
+                <label class="control-label" for="inputFname">Credit Exp Date/Year <sup>*</sup></label>
+			<div class="controls">
+			  <input type="text" name="ecpdate">
+			</div>
+                <br>
+                <label class="control-label" for="inputFname">Security number<sup>*</sup></label>
+			<div class="controls">
+			  <input type="text" name="secnumber">
+			</div>
+
+		</div>
+           <div class="control-group">
+			    <div class="controls">
+
+                    <button class="btn btn-large btn-success" type="submit">Complete Order</button>
+			    </div>
+           </div>
+	</form>
+
+    </div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+
+{% endblock %}

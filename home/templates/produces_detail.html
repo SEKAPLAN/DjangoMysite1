@@ -11,6 +11,7 @@
 
 {% endblock %}
 {%block content %}
+
 <head>
     <meta charset="utf-8">
     <title>Bootshop online Shopping cart</title>
@@ -49,7 +50,12 @@
 	<div class="row">
 <!-- Sidebar ================================================== -->
 	<div id="sidebar" class="span3">
-		<div class="well well-small"><a id="myCart" href="product_summary.html"><img src="themes/images/ico-cart.png" alt="cart">3 Items in your cart  <span class="badge badge-warning pull-right">$155.00</span></a></div>
+			<div class="well well-small">
+
+			<a id="myCart" href="/shopcart"><img src="/uploads/images/icon5.png" alt="cart"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> {{request.session.cart_items}} Itemes in 	your cart </span> </a>
+
+
+		</div>
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
 				{% load mptt_tags %}
 
@@ -109,9 +115,11 @@
     </ul>
 
 
+
 	<div class="row">
 
 			<div style="" id="gallery" class="span3">
+
 
             <a href="{{produce.image.url}}"  {{produce.title}}>
 				<img src="{{produce.image.url}}" style="width:100%" {{produce.title}}/>
@@ -140,16 +148,32 @@
 
 
 			</div>
+
 			<div class="span6">
 				<h3> {{produce.title}} </h3>
 				<small>- (14MP, 18x Optical Zoom) 3-inch LCD</small>
 				<hr class="soft"/>
-				<form class="form-horizontal qtyFrm">
+						{%if messages %}
+							{% for message in messages%}
+									<div class="alert alert-{{message.tags}}" role="alert">
+										{{message}}
+									</div>
+							{%endfor%}
+						{%endif%}
+
+				<form class="form-horizontal qtyFrm" action="/order/addtocart/{{produce.id}}" method="post">
+					{%csrf_token%}
 				  <div class="control-group">
 					<label class="control-label"><span>{{produce.price}}</span></label>
+
 					<div class="controls">
-					<input type="number" class="span1" placeholder="ADET:"/>
+
+							<input name="quantity" type="number" class="span1" placeholder="ADET:" min="0" max="{{produce.amount}}" value="1"/>
+
 					  <button type="submit" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></button>
+
+
+
 					</div>
 				  </div>
 				</form>
@@ -172,8 +196,8 @@
 				<hr class="soft clr"/>
 				<p>
 					{{produce.description}}
-
 				</p>
+
 				<a class="btn btn-small pull-right" href="#home">More Details</a>
 				<br class="clr"/>
 			<a href="#" name="detail"></a>

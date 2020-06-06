@@ -1,0 +1,75 @@
+{% extends "homebase.html"%}
+{%block title %} User Profile {{ profile.username }} {% endblock %}
+{%block keywords %}{{ setting.keywords  }} {% endblock %}
+{%block description %}{{ setting.description  }}{% endblock %}
+ {%block head%}
+<link rel="shorcut icon" type="image/x-icon" href="{{setting.icon.url}}"/>
+ {%endblock%}
+
+
+{%block sidebar %}
+
+{% endblock %}
+
+{%block content %}
+<div id="mainBody">
+<div class="container">
+
+	<div class="row">
+
+		<div class="span4">
+		<h3>USER PANEL</h3>
+			<hr>
+			{%include "user_panel.html" %}
+
+
+		</div>
+
+		<div class="span4">
+		<h3>User Information</h3>
+			<hr>
+
+			<table style="border: none;" class="table table-bordered">
+
+                <tr>
+				  <th></th>
+
+					<td style="border: none;"> <img width="80" src="{{profile.image.url}}" alt=""/></td>
+				</tr>
+				<tr>
+                  <th>Name Surname</th>
+					<td style="border: none;">{{profile.user.username}}</td>
+				</tr>
+
+				<tr>
+                  <th>Email</th>
+					<td style="border: none;">{{profile.user.email}}</td>
+				</tr>
+				<tr>
+                  <th>Phone</th>
+					<td style="border: none;">{{profile.phone}}</td>
+				</tr>
+				<tr>
+				  <th>Address</th>
+					<td style="border: none;">{{profile.address}}</td>
+				</tr>
+				<tr>
+                  <th>City</th>
+					<td style="border: none;">{{profile.city}}</td>
+				</tr>
+				<tr>
+                  <th>Country</th>
+					<td style="border: none;">{{profile.country}}</td>
+				</tr>
+
+			</table>
+
+		</div>
+	</div>
+
+
+</div>
+</div>
+
+
+{% endblock %}

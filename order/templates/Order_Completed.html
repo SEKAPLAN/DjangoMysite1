@@ -1,0 +1,39 @@
+{% extends "homebase.html"%}
+{%block title %} ShopCart {% endblock %}
+{%block keywords %}{{ categorydata.keywords  }} {% endblock %}
+{%block description %}{{ categorydata.description  }}{% endblock %}
+ {%block head%}
+<link rel="shorcut icon" type="image/x-icon" href="{{setting.icon.url}}"/>
+ {%endblock%}
+
+{%block sidebar %}
+
+{% endblock %}
+
+{%block content %}
+<div id="mainBody">
+<div class="container">
+
+	<div class="row">
+            {%if messages %}
+							{% for message in messages%}
+									<div class="alert alert-{{message.tags}}" role="alert">
+										{{message}}
+									</div>
+							{%endfor%}
+            {%endif%}
+
+        <p>Sayın:{{user.username}} </p>
+        <br>
+        <p>{{profile.code}} Kodlu siparişiniz tamamlanmıştır.Lütfen kodu saklayınız!!!</p>
+
+    </div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+
+{% endblock %}

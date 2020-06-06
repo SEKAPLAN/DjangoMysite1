@@ -1,0 +1,119 @@
+{% extends "homebase.html"%}
+{%block title %} ShopCart {% endblock %}
+{%block keywords %}{{ categorydata.keywords  }} {% endblock %}
+{%block description %}{{ categorydata.description  }}{% endblock %}
+ {%block head%}
+<link rel="shorcut icon" type="image/x-icon" href="{{setting.icon.url}}"/>
+ {%endblock%}
+
+{%block sidebar %}
+
+{% endblock %}
+
+{%block content %}
+<div id="mainBody">
+<div class="container">
+
+	<div class="row">
+
+		<div class="span9">
+
+            <h3 style="color:black">SHOPCART PRODUCT LİST</h3>
+
+	<table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th></th>
+				  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Total</th>
+                  <th></th>
+				</tr>
+              </thead>
+              <tbody>
+                        {%if messages %}
+							{% for message in messages%}
+									<div class="alert alert-{{message.tags}}" role="alert">
+										{{message}}
+									</div>
+							{%endfor%}
+						{%endif%}
+              {%for rs in schopcart %}
+
+                <tr>
+                  <td> <img width="60" src="{{rs.produce.image.url}}" alt=""/></td>
+
+                  <td>{{rs.produce.title}}<br/>{{rs.produce.description}}</td>
+                   <td>{{rs.produce.price}}</td>
+                  <td>{{rs.quantity}}</td>
+                  <td>{{rs.amount}}</td>
+
+				  <td>
+
+					<div class="input-append">
+                        <button class="btn btn-danger" type="button" > <a href="/order/deletefromcart/{{rs.id}}" onclick="return confirm('Ürün siliniyor!!!')"><img src="/uploads/images/icon3.png" alt="cart"></a>
+                        </button>
+                    </div>
+				  </td>
+
+
+                </tr>
+              {%endfor%}
+
+
+                <tr>
+                  <td colspan="6" style="text-align:right">Total Price:	</td>
+                  <th> SUBTOTAL</th>
+                  <th>${{total}}</th>
+                </tr>
+
+				 <tr>
+                  <td colspan="6" style="text-align:right">Total Discount:	</td>
+                  <td> SHIPPING</td>
+                  <td>Free Shipping</td>
+                </tr>
+
+				 <tr>
+                  <td colspan="6" style="text-align:right"><strong>TOTAL</strong></td>
+                  <td class="label label-important" style="display:block"><strong> ${{total}} </strong></td>
+                </tr>
+
+				</tbody>
+            </table>
+
+
+            <table class="table table-bordered">
+			<tbody>
+				 <tr>
+                  <td>
+				<form class="form-horizontal">
+				<div class="control-group">
+				<label class="control-label"><strong> VOUCHERS CODE: </strong> </label>
+				<div class="controls">
+				<input type="text" class="input-medium" placeholder="CODE">
+				<button type="submit" class="btn"> ADD </button>
+				</div>
+				</div>
+                  <div class="controls">
+                    <button class="btn btn-large btn-success"  type="submit">
+                        <a style="color:white" href="/order/orderproduce">Ödeme Sayfasına Geç</a></button>
+			      </div>
+				</form>
+				</td>
+                </tr>
+
+			</tbody>
+			</table>
+
+     </div>
+    </div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+
+{% endblock %}

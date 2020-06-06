@@ -16,16 +16,20 @@ from product.models import Comment
 
 from home.forms import SearchForm
 
+from home.forms import SignUpForm
+
+from order.models import ShopCart
 
 
 def index(request):
+    current_user = request.user
     setting = Setting.objects.get(pk=1)
     siliderdata=Produce.objects.all()[:1]
     category=Category.objects.all()
     dayproduces=Produce.objects.all()[:4]
     lastproduces=Produce.objects.all().order_by('-id')[:4]
     randomproduces = Produce.objects.all().order_by('?')[:4]
-
+    request.session['cart_items'] = ShopCart.objects.filter(user_id=current_user.id).count()
     context = {'setting': setting,'category':category,'page':'home',
                'siliderdata':siliderdata,
                'dayproduces': dayproduces,
@@ -135,6 +139,19 @@ def login_view(request):
     return render(request, 'login.html', context)
 
 
+def signup_view(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return HttpResponseRedirect('/')
 
-
+    form = SignUpForm()
+    category = Category.objects.all()
+    context = {'category': category,'form': form}
+    return render(request, 'signup.html', context)
 

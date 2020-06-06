@@ -69,7 +69,7 @@ class Produce(models.Model):
             return mark_safe((Category.status))
 
         def get_absolute_url(self):
-            return reverse('prduce_detail', kwargs={'slug': self.slug})
+            return reverse('produce_detail', kwargs={'slug': self.slug})
 
 class Comment(models.Model):
     STATUS = (
