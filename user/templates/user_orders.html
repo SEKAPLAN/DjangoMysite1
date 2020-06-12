@@ -1,0 +1,71 @@
+{% extends "homebase.html"%}
+{%block title %} Orders List {{ profile.username }} {% endblock %}
+{%block keywords %}{{ setting.keywords  }} {% endblock %}
+{%block description %}{{ setting.description  }}{% endblock %}
+ {%block head%}
+<link rel="shorcut icon" type="image/x-icon" href="{{setting.icon.url}}"/>
+ {%endblock%}
+
+
+{%block sidebar %}
+
+{% endblock %}
+
+{%block content %}
+<div id="mainBody">
+<div class="container">
+
+	<div class="row">
+			{%if messages %}
+					{% for message in messages%}
+								<div class="alert alert-{{message.tags}}" role="alert">
+											{{message}}
+								</div>
+					{%endfor%}
+			{%endif%}
+
+		<div class="span4">
+		<h3>USER PANEL</h3>
+			<hr>
+			{%include "user_panel.html" %}
+		</div>
+
+		<div class="span6">
+		<h3>User Order List</h3>
+			<hr>
+
+			<table class="table">
+                <tr style="border :none"  class="techSpecRow">
+				  	<th >Id</th>
+					<th >First Name</th>
+					<th>Last Name</th>
+					<th >Total</th>
+					<th>Status</th>
+					<th>Date</th>
+					<th >Detail</th>
+				</tr>
+				{%for rs in orders%}
+					<tr style="border :none"  class="techSpecRow" >
+						<td>{{rs.id}}</td>
+						<td>{{rs.first_name}}</td>
+						<td>{{rs.last_name}}</td>
+						<td>{{rs.total}}</td>
+						<td>{{rs.status}}</td>
+						<td>{{rs.create_at}}</td>
+						<td><a class="btn btn-large btn-success" href="/user/orderdetail/{{rs.id}}">Detay</a></td>
+					</tr>
+				{%endfor%}
+
+
+			</table>
+
+		</div>
+
+	</div>
+
+
+</div>
+</div>
+
+
+{% endblock %}

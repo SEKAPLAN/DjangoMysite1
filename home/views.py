@@ -20,6 +20,8 @@ from home.forms import SignUpForm
 
 from order.models import ShopCart
 
+from home.models import UserProfile
+
 
 def index(request):
     current_user = request.user
@@ -148,6 +150,12 @@ def signup_view(request):
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(request, user)
+            current_user = request.user
+            data = UserProfile()
+            data.user_id = current_user.id
+            data.image = "images/users/user.jpg"
+            data.save()
+            messages.success(request, "Hoş geldiniz.Sitemize başarılı bir şelde üye oldunuz ")
             return HttpResponseRedirect('/')
 
     form = SignUpForm()

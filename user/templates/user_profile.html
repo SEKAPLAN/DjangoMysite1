@@ -16,6 +16,13 @@
 <div class="container">
 
 	<div class="row">
+			{%if messages %}
+					{% for message in messages%}
+								<div class="alert alert-{{message.tags}}" role="alert">
+											{{message}}
+								</div>
+					{%endfor%}
+			{%endif%}
 
 		<div class="span4">
 		<h3>USER PANEL</h3>
@@ -63,6 +70,29 @@
 				</tr>
 
 			</table>
+
+		</div>
+		<div class="span4">
+
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<th>
+				<a href="/user/update/" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">UPDATE PROFİLE</span></a>
+				<br>
+				<br>
+				<a href="/user/password/" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">CHANGE PASSWORD</span></a>
+			</th>
+
 
 		</div>
 	</div>
