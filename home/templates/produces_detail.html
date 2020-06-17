@@ -214,14 +214,11 @@
 				{%endfor%}
 			{%endif%}
 
-
 				<form class="form-horizontal" action="/product/addcomment/{{produce.id}}" method="post">
 					{%csrf_token%}
         <fieldset>
           <div class="control-group">
-
               <input type="text" placeholder="Subject" class="input-xlarge" name="subject" id="id_subject"/>
-
           </div>
 
 			<div class="control-group">

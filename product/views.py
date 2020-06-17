@@ -6,9 +6,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from product.models import CommentForm,Comment
-
 from home.models import Setting
-
 
 def index(request):
     setting = Setting.objects_get(pk=1)

@@ -15,6 +15,7 @@ urlpatterns = [
     path('contentdelete/<int:id>', views.contentdelete, name="contentdelete"),
     path('comments/', views.comments, name="comments"),
     path('deletecomment/<int:id>', views.deletecomment, name="deletecomment"),
+    path('contenaddimage/<int:id>', views.contenaddimage, name="contenaddimage"),
 
     #path('addcomment/<int:id>', views.addcomment, name="addcomment"),
     # ex: /polls/5/

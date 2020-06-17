@@ -40,6 +40,7 @@
 					<th >Title</th>
 					<th>Type</th>
 					<th >Menu</th>
+					<th>Gallery</th>
 					<th>Status</th>
 					<th>Date</th>
 					<th >Detail</th>
@@ -53,11 +54,16 @@
 						<td>{{rs.title}}</td>
 						<td>{{rs.type}}</td>
 						<td>{{rs.menu.title}}</td>
+						<td>
+							<a href="javascript:;" onclick="window.open('/user/contenaddimage/{{ rs.id }}', 'gallery', 'height=600, width=800, top=50, left=150')">Gallery</a>
+						</td>
 						<td>{{rs.status}}</td>
 						<td>{{rs.create_at}}</td>
 						<td><a class="btn btn-large btn-success" href="/user/contentedit/{{rs.id}}">Edit </a>
 						</td>
 						<td><a class="btn btn-large btn-success" href="/user/contentdelete/{{rs.id}}" onclick="return confirm('İçeriği silmek istediğinize emin misiniz?!!!')">Delete</a>
+
+
 					</tr>
 				{%endfor%}
 
