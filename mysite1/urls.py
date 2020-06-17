@@ -30,7 +30,11 @@ urlpatterns = [
     path('user/', include('user.urls')),
     path('order/', include('order.urls')),
     path('home/', include('home.urls')),
+    path('content/', include('content.urls')),
     path('admin/', admin.site.urls),
+    path('content/<int:id>/<slug:slug>', views.contentdetail, name='contentdetail'),
+    path('menu/<int:id>', views.menu, name='menu'),
+
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('category/<int:id>/<slug:slug>',views.category_produces,name='category_produces'),
     path('produce/<int:id>/<slug:slug>',views.produces_detail,name='produces_detail'),

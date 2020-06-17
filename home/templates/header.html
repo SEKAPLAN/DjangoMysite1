@@ -68,6 +68,8 @@
 	 <li class=""><a href=" /iletisim">İletisim</a></li>
 	 <li class=""><a href=" /user">My Account</a></li>
 	 <li class=""><a href=" /user/orders">My Orders</a></li>
+	 <li class=""><a href=" /user/contents">My Content</a></li>
+
 		 {%if user.id is not None%}
 	 <a href="/login/" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">{{user.username}}</span></a>
 
@@ -75,7 +77,7 @@
 
 		 {%else%}
 		 <a href="/login/" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">LOGİN </span></a>
-		 <a href="/signup/"><span class="btn btn-large btn-success">signup </span></a></a>
+		 <a href="/signup/"><span class="btn btn-large btn-success">SIGNUP </span></a></a>
 		  {%endif%}
 	</li>
     </ul>

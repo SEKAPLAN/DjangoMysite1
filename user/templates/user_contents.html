@@ -14,9 +14,8 @@
 {%block content %}
 <div id="mainBody">
 <div class="container">
-
 	<div class="row">
-				{%if messages %}
+			{%if messages %}
 					{% for message in messages%}
 								<div class="alert alert-{{message.tags}}" role="alert">
 											{{message}}
@@ -31,30 +30,34 @@
 		</div>
 
 		<div class="span6">
-		<h3>User Comments</h3>
+			<h3>User Content List<a href="/user/addcontent" class="btn btn-large btn-success">Add  Content</a></h3>
+
 			<hr>
 
 			<table class="table">
                 <tr style="border :none"  class="techSpecRow">
 					<th>Image</th>
-					<th >Product</th>
-					<th>Subject</th>
-					<th >Comment</th>
+					<th >Title</th>
+					<th>Type</th>
+					<th >Menu</th>
 					<th>Status</th>
 					<th>Date</th>
 					<th >Detail</th>
 				</tr>
-				{%for rs in comments%}
-
+				{%for rs in contents%}
 					<tr style="border :none"  class="techSpecRow" >
-						<td><a href="/produce/{{rs.produce_id}}/{{rs.produce.slug}}"><img src="{{rs.produce.image.url}}"> </a></td>
-						<td>{{rs.produce.title}}</td>
-						<td>{{rs.subject}}</td>
-						<td>{{rs.comment}}</td>
+
+						<td><a href="/content/{{rs.id}}/{{rs.slug}}">
+							<img src="{{rs.image.url}}" style="height:30px;"></a>
+						</td>
+						<td>{{rs.title}}</td>
+						<td>{{rs.type}}</td>
+						<td>{{rs.menu.title}}</td>
 						<td>{{rs.status}}</td>
 						<td>{{rs.create_at}}</td>
-						<td><a class="btn btn-large btn-success" href="/user/deletecomment/{{rs.id}}" onclick="return confirm('Yorumunuzu silmek istediğinize emin misiniz?!!!')">Delete</a>
+						<td><a class="btn btn-large btn-success" href="/user/contentedit/{{rs.id}}">Edit </a>
 						</td>
+						<td><a class="btn btn-large btn-success" href="/user/contentdelete/{{rs.id}}" onclick="return confirm('İçeriği silmek istediğinize emin misiniz?!!!')">Delete</a>
 					</tr>
 				{%endfor%}
 

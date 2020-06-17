@@ -72,7 +72,6 @@
 						</li>
 					{% endrecursetree %}
 
-
 		<br/>
 
 	</div>
@@ -92,8 +91,8 @@
 			<div style="" id="gallery" class="span3">
 
 
-            <a href="{{produce.image.url}}"  {{produce.title}}>
-				<img src="{{produce.image.url}}" style="width:100%" {{produce.title}}/>
+            <a href="{{content.image.url}}"  {{content.title}}>
+				<img src="{{content.image.url}}" style="width:100%" {{content.title}}/>
             </a>
 
 			<div id="differentview" class="moreOptopm carousel slide">
@@ -101,27 +100,27 @@
                 <div class="carousel-inner">
 
                   <div class="item active">
-					 {%for rs in images%}
-                   		<a href="{{ rs.image.url}}"> <img style="width:29%" src="{{ rs.image.url}}" alt=""/></a>
+					  {%for rs in images%}
+                   <a href="#"> <img style="width:29%" src="{{ rs.image.url}}" alt=""/></a>
 					{%endfor%}
                   </div>
+
                   <div class="item">
                     {%for rs in images%}
-                   		<a href="#"> <img style="width:29%" src="{{ rs.image.url}}" alt=""/></a>
-					 {%endfor%}
+                   <a href="#"> <img style="width:29%" src="{{ rs.image.url}}" alt=""/></a>
+					  {%endfor%}
                   </div>
-
                 </div>
 
-				  <a class="left carousel-control" href="{{produce.image.url}}" data-slide="prev">‹</a>
-              <a class="right carousel-control" href="{{produce.image.url}}" data-slide="next">›</a>
+				  <a class="left carousel-control" href="{{content.image.url}}" data-slide="prev">‹</a>
+              <a class="right carousel-control" href="{{content.image.url}}" data-slide="next">›</a>
 			    </div>
 
 
 			</div>
 
 			<div class="span6">
-				<h3> {{produce.title}} </h3>
+				<h3> {{content.title}} </h3>
 				<small>- (14MP, 18x Optical Zoom) 3-inch LCD</small>
 				<hr class="soft"/>
 						{%if messages %}
@@ -132,18 +131,16 @@
 							{%endfor%}
 						{%endif%}
 
-				<form class="form-horizontal qtyFrm" action="/order/addtocart/{{produce.id}}" method="post">
+				<form class="form-horizontal qtyFrm" action="/order/addtocart/{{content.id}}" method="post">
 					{%csrf_token%}
 				  <div class="control-group">
-					<label class="control-label"><span>{{produce.price}}</span></label>
+					<label class="control-label"><span>${{content.price}}</span></label>
 
 					<div class="controls">
 
-							<input name="quantity" type="number" class="span1" placeholder="ADET:" min="0" max="{{produce.amount}}" value="1"/>
+							<input name="quantity" type="number" class="span1" placeholder="ADET:" min="0" max="{{content.amount}}" value="1"/>
 
-					  <button type="submit" class="btn btn-large btn-primary pull-right"> Sepete Ekle <i class=" icon-shopping-cart"></i></button>
-
-
+					  <button type="submit" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></button>
 
 					</div>
 				  </div>
@@ -166,7 +163,7 @@
 				</form>
 				<hr class="soft clr"/>
 				<p>
-					{{produce.description}}
+					{{content.description}}
 				</p>
 
 				<a class="btn btn-small pull-right" href="#home">More Details</a>
@@ -215,7 +212,7 @@
 			{%endif%}
 
 
-				<form class="form-horizontal" action="/product/addcomment/{{produce.id}}" method="post">
+				<form class="form-horizontal" action="/product/addcomment/{{content.id}}" method="post">
 					{%csrf_token%}
         <fieldset>
           <div class="control-group">

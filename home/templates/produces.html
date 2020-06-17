@@ -21,7 +21,6 @@
 			<div class="well well-small">
 
 				<a id="myCart" href="/shopcart"><img src="/uploads/images/icon5.png" alt="cart"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> {{request.session.cart_items}} Itemes in 	your cart </span> </a>
-
 			</div>
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
 			{% load mptt_tags %}
@@ -32,39 +31,14 @@
 							{% if not node.is_leaf_node %}
 								<ul style="display:none">
 							     <li>
-									 <a href="#">{{ children }}</a>
+									 <a href="/category/{{node.id}}/{{node.slug}}">{{ children }}</a>
 								 </li>
 								</ul>
 							{% endif %}
 						</li>
 					{% endrecursetree %}
-			<li class="subMenu"><a> CLOTHES [840] </a>
-			<ul style="display:none">
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Women's Clothing (45)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Women's Shoes (8)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Women's Hand Bags (5)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Men's Clothings  (45)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Men's Shoes (6)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Kids Clothing (5)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Kids Shoes (3)</a></li>
-			</ul>
-			</li>
-			<li class="subMenu"><a>FOOD AND BEVERAGES [1000]</a>
-				<ul style="display:none">
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Angoves  (35)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Bouchard Aine & Fils (8)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>French Rabbit (5)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Louis Bernard  (45)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>BIB Wine (Bag in Box) (8)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Other Liquors & Wine (5)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Garden (3)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Khao Shong (11)</a></li>
-			</ul>
-			</li>
-			<li><a href="products.html">HEALTH & BEAUTY [18]</a></li>
-			<li><a href="products.html">SPORTS & LEISURE [58]</a></li>
-			<li><a href="products.html">BOOKS & ENTERTAINMENTS [14]</a></li>
-		</ul>
+
+
 		<br/>
 
 
@@ -93,10 +67,6 @@
 		</div>
 	  </form>
 
-<div id="myTab" class="pull-right">
- <a href="#listView" data-toggle="tab"><span class="btn btn-large"><i class="icon-list"></i></span></a>
- <a href="#blockView" data-toggle="tab"><span class="btn btn-large btn-primary"><i class="icon-th-large"></i></span></a>
-</div>
 <br class="clr"/>
 <div class="tab-content">
 	<div class="tab-pane" id="listView">
@@ -281,15 +251,12 @@
 
 			<li class="span3">
 			  <div class="thumbnail">
-				<a href="/product/{{rs.id}}/{{rs.slug}}"><img src="{{rs.image.url}}" alt=""/></a>
+				<a href="/produce/{{rs.id}}/{{rs.slug}}"><img src="{{rs.image.url}}" alt=""/></a>
 				<div class="caption">
 				  <h5>{{rs.title}}</h5>
-				  <p>
-					I'm a paragraph. Click here
-				  </p>
-				   <h4 style="text-align:center"><a class="btn" href="/product/{{rs.id}}/{{rs.slug}}">
-					   <i	class="icon-zoom-in"></i></a>
-					   <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a>
+
+				   <h4 style="text-align:center">
+					   <a class="btn" href="/order/addtocart/{{rs.id}}"> Ekle <i class="icon-shopping-cart"></i></a>
 					   <a class="btn btn-primary" href="/product/{{rs.id}}/{{rs.slug}}	">${{rs.price}}</a></h4>
 				</div>
 			  </div>
@@ -300,7 +267,7 @@
 	</div>
 </div>
 
-	<a href="compair.html" class="btn btn-large pull-right">Compair Product</a>
+
 	<div class="pagination">
 			<ul>
 			<li><a href="#">&lsaquo;</a></li>

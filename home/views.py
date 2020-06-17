@@ -22,18 +22,26 @@ from order.models import ShopCart
 
 from home.models import UserProfile
 
+from content.models import CImages,Menu,Content
+
+
 
 def index(request):
     current_user = request.user
     setting = Setting.objects.get(pk=1)
-    siliderdata=Produce.objects.all()[:1]
-    category=Category.objects.all()
+    siliderdata= Produce.objects.all()[:1]
+    category = Category.objects.all()
+    menu = Menu.objects.all()
     dayproduces=Produce.objects.all()[:4]
     lastproduces=Produce.objects.all().order_by('-id')[:4]
     randomproduces = Produce.objects.all().order_by('?')[:4]
     request.session['cart_items'] = ShopCart.objects.filter(user_id=current_user.id).count()
+    announcements = Content.objects.filter(type='duyuru',status='True').order_by('-id')[:4]
+
     context = {'setting': setting,'category':category,'page':'home',
-               'siliderdata':siliderdata,
+               'siliderdata': siliderdata,
+               'menu': menu,
+               'announcements':announcements,
                'dayproduces': dayproduces,
                'lastproduces': lastproduces,
                'randomproduces':randomproduces}
@@ -79,11 +87,17 @@ def category_produces(request,id,slug):
 
 def produces_detail(request,id,slug):
     category = Category.objects.all()
-    produce = Produce.objects.get(pk=id)
-    images = Images.objects.filter(produce_id=id)
-    comments = Comment.objects.filter(produce_id=id,status='True')
-    context = {'produce': produce, 'category': category,'images': images,'comments': comments}
-    return render(request, 'produces_detail.html', context)
+    try:
+        produce = Produce.objects.get(pk=id)
+        images = Images.objects.filter(produce_id=id)
+        comments = Comment.objects.filter(produce_id=id, status='True')
+        context = {'produce': produce, 'category': category, 'images': images, 'comments': comments}
+        return render(request, 'produces_detail.html', context)
+    except:
+        messages.warning(request, "Hata ! İlgili içerik bulunamadı")
+        link = '/'
+        return HttpResponseRedirect(link)
+
 
 def produce_search(request):
     if request.method == 'POST':
@@ -163,3 +177,26 @@ def signup_view(request):
     context = {'category': category,'form': form}
     return render(request, 'signup.html', context)
 
+def menu(request,id):
+    try:
+        content = Content.objects.get(menu_id=id)
+        link = '/content/' + str(content.id) + '/menu'
+        return HttpResponseRedirect(link)
+    except:
+            messages.warning(request,"Hata ! İlgili içerik bulunamadı")
+            link = '/'
+            return HttpResponseRedirect(link)
+
+def contentdetail(request,id,slug):
+    category = Category.objects.all()
+    menu = Menu.objects.all()
+    content = Content.objects.get(pk=id)
+    images = CImages.objects.filter(content_id=id)
+    #comments= Comment.objects.filter(produce_id=id,status='True')
+    context = {
+        'content': content,
+        'category': category,
+        'menu': menu,
+        'images': images,
+    }
+    return render(request,'content_detail.html',context)
